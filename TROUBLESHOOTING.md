@@ -17,6 +17,28 @@
 
 ---
 
+## [26-07-15] GNS3 GUI에서 "KVM accleration annot be used (/dev/kvm doesn't exist)." 에러
+
+**증상**: GNS3 캔버스에서 VyOS 노드 Start 진행 불가
+
+**원인**: VirtualBox에서 VyOS 실행하기 위한 KVM(리눅스 커널 자체 가상화 가속 기술)이 비활성화
+          되어 있음.
+          GNS3 VM이 VirtualBox 위에서 가동되는 가상 머신이라 중첩 가상화가 필요하기 때문.
+
+**해결**: VirtualBox의 GNS3 VM 콘솔 창을 통해 gns3_server.conf 파일 내용 수정, [Qemu]
+          enable_kvm = false 내용 추가 및 저장 후 GNS3 VM 재부팅
+
+---
+
+## [26-07-15] GNS3 GUI에서 "POST /projects/d19aecf3- .../qemu/nodes/.../start not found" 에러
+
+**증상**: GNS3 캔버스에서 VyOS 노드 Start 진행 불가
+**원인**: ...
+**해결**: ...
+
+
+---
+
 ## [YY-MM-DD] 제목
 
 **증상**: ...
