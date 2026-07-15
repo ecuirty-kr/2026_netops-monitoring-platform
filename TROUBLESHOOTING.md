@@ -55,6 +55,34 @@
 
 ---
 
+## [26-07-16] VyOS 부팅 중 커널 패닉 발생 "Kernel panic - IO-APIC + timer"
+
+**증상**: enable_kvm = false 적용 후 VyOS 노드 부팅 시, Console 창에서
+          "Kernel panic - not syncing: IO-APIC + timer doesn't work!" 메시지 출력 및 부팅 실패
+
+**원인**: KVM 가속 없이 순수 소프트웨어 에뮬레이션(QEMU)으로 인터럽트 컨트롤러(APIC)를
+          처리하면서 타이머 동기화 실패
+
+**해결**: VirtualBox의 GNS3 VM 설정에서 시스템 - 프로세스 - Nested VT-x/AMD-V 가상화 활성화,
+          enable_kvm = true로 변경하여 하드웨어 가속 기반으로 전환
+
+---
+
+## [26-07-16] Hyper-V(WSL2)와 VirtualBox 중첩 가상화 충돌
+
+**증상**: VirtualBox의 Nested VT-x/AMD-V를 활성화 했으나 GNS3 VM에서
+          "KVM is not supported! ... another virtualization solution is already running"
+          에러 메시지 발생
+
+**원인**: PowerShell bcdedit 확인 결과 hypervisorlaunchtype이 Auto로 설정되어 있음.
+          이전 CKA 실습 중 설치한 WSL2의 Hyper-V 기반으로 현재 활성화되어 있어
+          VirtualBox의 중첩 가상화와 충돌함
+
+**해결**: WSL2를 유지, Hyper-V는 유지하되 GNS3 실행 방식 변경
+          (VirtualBox 기반 GNS3 VM 로 계획 수정 검토)
+
+---
+
 ## [YY-MM-DD] 제목
 
 **증상**: ...
