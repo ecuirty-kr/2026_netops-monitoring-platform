@@ -7,6 +7,14 @@ Network monitoring &amp; auto-remediation lab using VyOS, Zabbix, Ansible, and K
 ## 0. 아키텍처
 <img width="678" height="354" alt="image" src="https://github.com/user-attachments/assets/9abd08ab-8b02-4576-a093-ea0b1abf00cd" />
 
+## 0-1. 아키텍처 변경 이력
+
+**[2026-07-16]** GNS3 실행 환경 변경: VirtualBox → WSL2 직접 설치
+
+초기 계획은 GNS3 + VirtualBox 기반이었으나 WSL2(Hyper-V 기반)와 VirtualBox의 가상화가 충돌하여 KVM을 사용할 수 없는 문제를 확인했다. (TROUBLESHOOTING.md 참고)
+
+이에 따라 GNS3를 WSL2 Ubuntu 환경에 직접 설치하는 방식으로 전환했다.
+이로써 네트워크 랩(GNS3)과 모니터링 및 자동화 스택(k3s)을 동일한 WSL2 환경으로 통합하고 전체 구조를 단순화했다.
 
 ## 1. 프로젝트 개요
 
