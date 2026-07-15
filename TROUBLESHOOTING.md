@@ -17,7 +17,7 @@
 
 ---
 
-## [26-07-15] GNS3 GUI에서 "KVM accleration annot be used (/dev/kvm doesn't exist)." 에러
+## [26-07-15] GNS3 GUI에서 "KVM accleration cannot be used (/dev/kvm doesn't exist)." 에러
 
 **증상**: GNS3 캔버스에서 VyOS 노드 Start 진행 불가
 
