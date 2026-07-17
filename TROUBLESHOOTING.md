@@ -83,7 +83,7 @@
 
 ---
 
-## [26-07-16] GNS3 GUI 에서 WSL2 서버 (localhost:3080) 연결 실패
+## [26-07-16] GNS3 GUI 에서 WSL2 서버(localhost:3080) 연결 실패
 
 **증상**: WSL2에 GNS3 서버 정상 실행 확인, Windows에 GNS3 GUI에서 localhost:3080 접속 시도 시
           "Cannot connect to the GNS3 server" 에러 발생.
@@ -95,6 +95,25 @@
 
 **해결**: GNS3 GUI의 Main server 설정에서 Host를 localhost 대신 WSL2의 실제 IP 주소로 변경.
           Windows 재부팅 시 IP 변경될 수 있으므로 확인 필요.
+
+
+---
+
+## [26-07-17] VyOS 노드 KVM 권한 에러 (Permission Denied)
+
+**증상**: WSL2 환경에서 VyOS 노드 Start 시
+          "Could not access KVM kernel module: Permission denied", "uBrindge is not available"
+          에러 발생
+
+**원인**: WSL2 사용자 계정이 kvm 그룹에 속해있지 않음.
+          groups 명령어로 확인 시 kvm 그룹 자체는 시스템에 존재했으나 사용자 계정이 포함되지 않음
+
+
+**해결**: sudo usermod -a -G kvm $USER 로 그룹 추가 후,
+          PowerShell에서 wsl --shutdown으로 WSL2 세션 재시작하여 그룹 권한 반영.
+          이후 groups 명령어로 kvm 계정 포함된 것 확인, gns3server 재실행하여
+          VyOS 노드 정상 부팅 확인 (Stop 후 Start, 부팅 시간 약 5초 후 KVM 가속 정상 작동 확인)
+
 
 ---
 
