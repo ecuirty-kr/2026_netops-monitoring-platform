@@ -171,6 +171,25 @@
              별도 세션을 확보하여 동시 모니터링하여 구간별 원인을 파악하며 좁혀나감.
           (※ WSL2 재부팅 시 라우트 유실됨. 영구 적용은 추후 검토)
 
+---
+
+## [26-07-18] VyOS static route 설정이 FRR(FIB)에 미반영
+
+**증상**: `set protocols static route 0.0.0.0/0 next-hop 10.0.0.1(10.0.1.1)` commit 후 save 완료.
+          `show configuration commands | match static` 명령으로 설정을 확인했으나,
+          `run show ip route`, `vtysh` 접속 후 `show ip route`에서 해당 설정이 보이지 않음.
+          `restart frr`로 FRR 데몬 재시작 이후에도 동일한 현상 지속됨
+
+**원인**: `run show log tail 100 | match static`으로 로그 확인 결과,
+          VyOS 최초 부팅 시점에 staticd가 초기 연결에 실패한 이력 확인
+          (watchfrr: staticd state -> down : initial connection attempt failed)
+          Live-ISO 환경 특성상 설정 반영 과정에서 발생한 오버레이 파일시스템 이슈로 추정됨.
+          (vtysh write 시 "Error renaming /etc/frr/frr.conf ... Device or resource busy" 에러)
+          VyOS CLI -> FRR로의 config 동기화가 에러 발생 없이 실패하는 것으로 예상.
+
+**해결**: vtysh로 FRR에 라우트를 직접 적용하여 VyOS 설정 동기화 계층을 우회함.
+          단, VyOS config tree에는 반영되지 않아 `show configuration` 출력으로 확인되지 않음.
+          Live-ISO 특성상 재부팅 시 유지되지 않으므로 VM 재시작 시 재설정 필요함
 
 ---
 
