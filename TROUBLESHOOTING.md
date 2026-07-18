@@ -189,7 +189,7 @@
 
 **해결**: vtysh로 FRR에 라우트를 직접 적용하여 VyOS 설정 동기화 계층을 우회함.
           단, VyOS config tree에는 반영되지 않아 `show configuration` 출력으로 확인되지 않음.
-          Live-ISO 특성상 재부팅 시 유지되지 않으므로 VM 재시작 시 재설정 필요함
+          Live-ISO 특성상 재부팅 시 유지되지 않으므로 재설정이 필요할 수 있음
 
 ---
 
