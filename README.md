@@ -86,3 +86,15 @@ Network monitoring &amp; auto-remediation lab using VyOS, Zabbix, Ansible, and K
 
 **상태**: 로드맵 단계, 이번 스프린트 범위 아님
 
+
+---
+
+## 3. 산출물
+
+### Phase 1 결과물
+
+- Zabbix Network Map
+  
+![Zabbix Network Map](images/(26.07.19)zabbix_network_map.png)
+
+VyOS-1, VyOS-2, VyOS-3 토폴로지로 SNMP polling 정상 확인
