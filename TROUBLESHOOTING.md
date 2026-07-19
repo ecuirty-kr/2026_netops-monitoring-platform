@@ -193,6 +193,21 @@
 
 ---
 
+## [26-07-20] Grafana에 Zabbix Data Source 연결 시 "no such host" 에러 발생
+
+**증상**: Grafana에서 Zabbix Plugin install 및 enalble 진행, Zabbix Data source에 추가한 후
+          Save & Test 시 `dial tcp: lookup zabbix-web.monitering.svc.cluster. ... no such host`
+          에러 발생
+
+**원인**: Helm release 이름과 차트 내부 컴포넌트명이 결합되어 실제 서비스명이
+          `zabbix-web`이 아닌 `zabbix-zabbix-web` 으로 생성됨 (kubectl get svc -n monitoring 확인)
+
+**해결**: Data source URL을 실제 서비스명을 수정하여 재시도. Save & Test 정상 연결 확인
+          - http://zabbix-zabbix-web.monitoring.svc.cluster.local/api_jsonrpc.php
+          (향후 Helm 설치 시 release 이름을 Helm 차트 내부 컴포넌트명과 겹치지 않게 지정할 것)
+
+---
+
 ## [YY-MM-DD]
 
 **증상**: ...
